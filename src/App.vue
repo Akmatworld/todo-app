@@ -1,18 +1,20 @@
 <template>
   <div id="app">
-    <Todos/>
+    <Todos :todos="todos" @delete-todo="deleteTodo"/>
+    <AddTodo @add-todo="addTodo"/>
   </div>
 </template>
-
 <script>
-import Todos from './components/Todos';
+import Todos from './components/Todos'
+import AddTodo from './components/AddTodo'
 
 export default {
   name: 'App',
   components: {
-    Todos
+    Todos,
+    AddTodo
   },
-  data() {
+  data () {
     return {
       todos: [
         {
@@ -40,9 +42,17 @@ export default {
           title: 'Finish work',
           completed: false
         }
-      ],
+      ]
     }
   },
+  methods: {
+    addTodo (newTodoObj) {
+      this.todos = [...this.todos, newTodoObj]
+    },
+    deleteTodo (todoId) {
+      this.todos = this.todos.filter(todo => todo.id !== todoId)
+    }
+  }
 }
 </script>
 
