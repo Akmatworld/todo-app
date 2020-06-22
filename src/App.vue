@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Todos :todos="todos" @delete-todo="deleteTodo"/>
+    <Todos :todos="todos" @delete-todo="deleteTodo" @save-text="saveText"/>
     <AddTodo @add-todo="addTodo"/>
   </div>
 </template>
@@ -51,6 +51,13 @@ export default {
     },
     deleteTodo (todoId) {
       this.todos = this.todos.filter(todo => todo.id !== todoId)
+    },
+    saveText (changedText) {
+      this.todos.forEach((item, index) => {
+        if (item.id === changedText.id) {
+          this.todos[index].title = changedText.title
+        }
+      })
     }
   }
 }

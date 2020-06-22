@@ -3,7 +3,7 @@
     <h2 class="todo-title">My todolist</h2>
     <ul class="todos-ul">
       <li v-bind:key="todo.id" v-for="todo in todos">
-        <Todo v-bind:todo="todo" @delete-todo="$emit('delete-todo', todo.id)"/>
+        <Todo v-bind:todo="todo" @delete-todo="$emit('delete-todo', todo.id)" @save-text="saveText"/>
       </li>
     </ul>
   </div>
@@ -18,7 +18,12 @@ export default {
   },
   props: [
     'todos'
-  ]
+  ],
+  methods: {
+    saveText (changedText) {
+      this.$emit('save-text', changedText)
+    }
+  }
 }
 </script>
 <style scoped>

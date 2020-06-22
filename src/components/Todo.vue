@@ -2,12 +2,13 @@
   <div>
     <div :class="{ 'completed': todo.completed }">
       <div class="item-div">
-        <b-button class="done" @click="markComplete" variant="success">Done</b-button>
-        <b-button class="delete" @click="$emit('delete-todo', todo.id)" variant="danger">Delete</b-button>
-        <p class="item-p" :class="{completed: isActive}">{{ todo.title }}</p>
-      </div>
-      <div class="change-text">
-        <input type="text" :value="todo.title">
+        <b-button class="done" :class="{hide: isHide}" @click="markComplete" variant="success">Done</b-button>
+        <b-button class="delete" :class="{hide: isHide}" @click="$emit('delete-todo', todo.id)" variant="danger">Delete</b-button>
+        <b-button class="save" :class="{hide: isChange}" @click="saveText" variant="outline-primary">Save</b-button>
+        <p class="item-p" :class="{completed: isCompleted, hide: isHide}" @click="clickChangeText">{{ todo.title }}</p>
+        <div class="form-group item-p" :class="{hide: isChange}">
+          <textarea class="form-control" id="changeTextId" rows="3" v-model='text'></textarea>
+        </div>
       </div>
     </div>
   </div>
@@ -20,8 +21,11 @@ export default {
   name: 'Todo',
   data () {
     return {
-      isActive: false,
-      text: this.todo.title
+      isHide: false,
+      isChange: true,
+      isCompleted: false,
+      text: this.todo.title,
+      id: this.todo.id
     }
   },
   props: [
@@ -29,7 +33,16 @@ export default {
   ],
   methods: {
     markComplete () {
-      this.isActive = this.isActive === false
+      this.isCompleted = this.isCompleted === false
+    },
+    clickChangeText () {
+      this.isHide = true
+      this.isChange = false
+    },
+    saveText () {
+      this.$emit('save-text', { title: this.text, id: this.id })
+      this.isHide = false
+      this.isChange = true
     }
   }
 }
@@ -40,7 +53,6 @@ export default {
     color: #ccc;
   }
   .item-p {
-    /* border: 1px solid #ccc; */
     padding: 0 5px;
     font-size: 25px;
     width: 100%;
@@ -64,5 +76,8 @@ export default {
     width: 10%;
     margin-right: 5px;
     height: 40px;
+  }
+  .hide {
+    display: none;
   }
 </style>
