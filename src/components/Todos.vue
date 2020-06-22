@@ -3,7 +3,7 @@
     <h2 class="todo-title">My todolist</h2>
     <ul class="todos-ul">
       <li v-bind:key="todo.id" v-for="todo in todos">
-        <Todo v-bind:todo="todo" v-on:delete-todo="$emit('delete-todo', todo.id)"/>
+        <Todo v-bind:todo="todo" @delete-todo="$emit('delete-todo', todo.id)"/>
       </li>
     </ul>
   </div>
@@ -30,5 +30,6 @@ export default {
 }
 .todo-title {
   text-align: center;
+  margin:10px 0 20px;
 }
 </style>

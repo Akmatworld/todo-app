@@ -59,7 +59,7 @@ export default {
 <style lang="scss">
 body {
   margin: 0;
-  paddin: 0;
+  padding: 0;
 }
 #app {
   border: 1px solid #ccc;
