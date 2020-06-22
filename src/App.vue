@@ -19,7 +19,7 @@ export default {
       todos: [
         {
           id: 1,
-          title: 'Go workout',
+          title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore repellat, a odio eius at necessitatibus, quibusdam, possimus quae cum maiores rerum quasi odit culpa. Earum minima error minus eveniet consequatur.',
           completed: false
         },
         {
@@ -57,5 +57,13 @@ export default {
 </script>
 
 <style lang="scss">
-
+body {
+  margin: 0;
+  paddin: 0;
+}
+#app {
+  border: 1px solid #ccc;
+  width: 80%;
+  margin: 0 auto;
+}
 </style>
