@@ -4,10 +4,11 @@
       <div class="item-div">
         <b-button class="done" :class="{hide: isHide}" @click="markComplete" variant="success">Done</b-button>
         <b-button class="delete" :class="{hide: isHide}" @click="$emit('delete-todo', todo.id)" variant="danger">Delete</b-button>
+        <b-button class="cancel" :class="{hide: isChange}" @click="cancel" variant="danger">Cancel</b-button>
         <b-button class="save" :class="{hide: isChange}" @click="saveText" variant="outline-primary">Save</b-button>
         <p class="item-p" :class="{completed: isCompleted, hide: isHide}" @click="clickChangeText">{{ todo.title }}</p>
         <div class="form-group item-p" :class="{hide: isChange}">
-          <textarea class="form-control" id="changeTextId" rows="3" v-model='text'></textarea>
+          <textarea class="form-control" @keyup.enter="saveText" id="changeTextId" rows="2" v-model='text'></textarea>
         </div>
       </div>
     </div>
@@ -43,6 +44,11 @@ export default {
       this.$emit('save-text', { title: this.text, id: this.id })
       this.isHide = false
       this.isChange = true
+    },
+    cancel () {
+      this.isHide = false
+      this.isChange = true
+      this.text = this.todo.title
     }
   }
 }
@@ -58,6 +64,9 @@ export default {
     width: 100%;
     margin: 0;
     border-top: 1px solid #ccc;
+  }
+  .form-control {
+    font-size: 25px;
   }
   .item-div {
     display:flex;
@@ -79,5 +88,15 @@ export default {
   }
   .hide {
     display: none;
+  }
+  .save {
+    width: 10%;
+    margin-right: 5px;
+    height: 40px;
+  }
+  .cancel {
+    width: 10%;
+    margin-right: 5px;
+    height: 40px;
   }
 </style>
