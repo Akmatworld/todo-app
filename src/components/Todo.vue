@@ -101,4 +101,16 @@ export default {
     margin-right: 5px;
     height: 40px;
   }
+  @media only screen and (max-width: 913px) {
+    .item-div {
+      display: block;
+    }
+    .done,
+    .delete,
+    .cancel,
+    .save {
+      width: 50%;
+      margin: 0;
+    }
+  }
 </style>

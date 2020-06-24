@@ -31,11 +31,11 @@ export default {
         this.$emit('add-todo', newTodoObj)
         this.title = ''
       } else {
-        this.errorText = 'Input is empty!'
+        this.errorText = 'Input is empty! Please enter text to add.'
         this.isError = false
         setTimeout(() => {
           this.isError = true
-        }, 2000)
+        }, 3000)
       }
     },
     clean (e) {
