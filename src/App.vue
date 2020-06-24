@@ -70,7 +70,6 @@ body {
   padding: 0;
 }
 #app {
-  border: 1px solid #ccc;
   width: 80%;
   margin: 0 auto;
 }
