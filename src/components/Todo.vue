@@ -104,13 +104,21 @@ export default {
   @media only screen and (max-width: 913px) {
     .item-div {
       display: block;
+      padding-left: 0;
     }
     .done,
     .delete,
     .cancel,
     .save {
-      width: 50%;
+      width: 45%;
       margin: 0;
+    }
+    .done {
+      margin-right: 10%;
+    }
+    .item-p {
+      font-size: 18px;
+      margin-top: 5px;
     }
   }
 </style>
