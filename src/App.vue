@@ -20,12 +20,12 @@ export default {
       todos: [
         {
           id: 1,
-          title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore repellat, a odio eius at necessitatibus, quibusdam, possimus quae cum maiores rerum quasi odit culpa. Earum minima error minus eveniet consequatur.',
+          title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.Earum minima error minus eveniet consequatur.',
           completed: false
         },
         {
           id: 2,
-          title: 'Do laundry',
+          title: 'Inventore repellat, a odio eius at necessitatibus',
           completed: false
         },
         {
@@ -40,7 +40,7 @@ export default {
         },
         {
           i: 5,
-          title: 'Finish work',
+          title: 'Earum minima error minus eveniet consequatur.',
           completed: false
         }
       ]

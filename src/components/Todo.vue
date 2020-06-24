@@ -8,6 +8,7 @@
         <b-button class="save" :class="{hide: isChange}" @click="saveText" variant="outline-primary">Save</b-button>
         <p class="item-p" :class="{completed: isCompleted, hide: isHide}" @click="clickChangeText">{{ todo.title }}</p>
         <div class="form-group item-p" :class="{hide: isChange}">
+          <h2 class="error" :class="{hide: isError}">{{ errorText }}</h2>
           <textarea class="form-control" ref="changeTextarea" @keyup.esc="cancel" @keyup.enter="saveText" id="changeTextId" rows="2" v-model='text'></textarea>
         </div>
       </div>
@@ -25,6 +26,8 @@ export default {
       isHide: false,
       isChange: true,
       isCompleted: false,
+      isError: true,
+      errorText: 'To change you need enter change text!',
       text: this.todo.title,
       id: this.todo.id
     }
@@ -44,9 +47,16 @@ export default {
       })
     },
     saveText () {
-      this.$emit('save-text', { title: this.text, id: this.id })
-      this.isHide = false
-      this.isChange = true
+      if (this.text.length > 0) {
+        this.$emit('save-text', { title: this.text, id: this.id })
+        this.isHide = false
+        this.isChange = true
+      } else {
+        this.isError = false
+        setTimeout(() => {
+          this.isError = true
+        }, 2000)
+      }
     },
     cancel () {
       this.isHide = false
@@ -100,6 +110,10 @@ export default {
     width: 10%;
     margin-right: 5px;
     height: 40px;
+  }
+  .error {
+    font-size: 20px;
+    color: red;
   }
   @media only screen and (max-width: 913px) {
     .item-div {
