@@ -8,7 +8,7 @@
         <b-button class="save" :class="{hide: isChange}" @click="saveText" variant="outline-primary">Save</b-button>
         <p class="item-p" :class="{completed: isCompleted, hide: isHide}" @click="clickChangeText">{{ todo.title }}</p>
         <div class="form-group item-p" :class="{hide: isChange}">
-          <textarea class="form-control" @keyup.enter="saveText" id="changeTextId" rows="2" v-model='text'></textarea>
+          <textarea class="form-control" ref="changeTextarea" @keyup.esc="cancel" @keyup.enter="saveText" id="changeTextId" rows="2" v-model='text'></textarea>
         </div>
       </div>
     </div>
@@ -39,6 +39,9 @@ export default {
     clickChangeText () {
       this.isHide = true
       this.isChange = false
+      this.$nextTick(() => {
+        this.$refs.changeTextarea.focus()
+      })
     },
     saveText () {
       this.$emit('save-text', { title: this.text, id: this.id })
@@ -63,7 +66,6 @@ export default {
     font-size: 25px;
     width: 100%;
     margin: 0;
-    border-top: 1px solid #ccc;
   }
   .form-control {
     font-size: 25px;
