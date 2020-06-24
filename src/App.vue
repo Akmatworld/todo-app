@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-    <Todos :todos="todos" @delete-todo="deleteTodo" @save-text="saveText"/>
+    <h2 class="todo-title">My todolist</h2>
     <AddTodo @add-todo="addTodo"/>
+    <Todos :todos="todos" @delete-todo="deleteTodo" @save-text="saveText"/>
   </div>
 </template>
 <script>
@@ -72,5 +73,9 @@ body {
   border: 1px solid #ccc;
   width: 80%;
   margin: 0 auto;
+}
+.todo-title {
+  text-align: center;
+  margin:10px 0 20px;
 }
 </style>

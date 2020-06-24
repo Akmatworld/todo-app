@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h2 class="todo-title">My todolist</h2>
     <ul class="todos-ul">
       <li v-bind:key="todo.id" v-for="todo in todos">
         <Todo v-bind:todo="todo" @delete-todo="$emit('delete-todo', todo.id)" @save-text="saveText"/>
@@ -26,15 +25,11 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style scoped lang="scss">
 .todos-ul {
   padding: 0 10px;
 }
 .todos-ul li {
   list-style-type: none;
-}
-.todo-title {
-  text-align: center;
-  margin:10px 0 20px;
 }
 </style>
