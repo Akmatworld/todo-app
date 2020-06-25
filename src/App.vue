@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h2 class="todo-title">My todolist</h2>
+    <h2 class="todo-title">Personal</h2>
     <AddTodo @add-todo="addTodo"/>
     <Todos :todos="todos" @delete-todo="deleteTodo" @save-text="saveText"/>
   </div>
@@ -70,12 +70,19 @@ body {
   padding: 0;
 }
 #app {
-  width: 80%;
+  width: 70%;
   margin: 0 auto;
   border: 1px solid #ccc;
 }
 .todo-title {
   text-align: center;
   margin:10px 0 20px;
+  color: #45c7c1;
+  font-weight: 900;
+}
+@media only screen and (max-width: 500px) {
+  #app {
+    width: 100%;
+  }
 }
 </style>

@@ -12,14 +12,14 @@
           <input type="checkbox" class="completed-checkbox" :class="{hideEdit: isEdit}" v-model="isCompleted">
         </div>
         <p class="item-p" :class="{completed: isCompleted, hide: isHide}">{{ todo.title }}</p>
-        <!-- <div class="trash" @click="$emit('delete-todo', todo.id)">
+        <!-- <div class="trash-icon" @click="$emit('delete-todo', todo.id)">
           <i class="far fa-trash-alt"></i>
         </div> -->
         <div class="form-group item-p" :class="{hide: isChange}">
           <h2 class="error" :class="{hide: isError}">{{ errorText }}</h2>
           <input type="text" v-model="text" name="title"  ref="changeText" @keyup.esc="cancel" @keyup.enter="saveText" class="form-control edit-input" placeholder="Edit...">
         </div>
-        <div class="pen" :class="{hideEdit: isEdit}" @click="clickChangeText">
+        <div class="pen-icon" :class="{hideEdit: isEdit}" @click="clickChangeText">
           <i class="fas fa-pen"></i>
         </div>
       </div>
@@ -57,7 +57,7 @@ export default {
       this.isEdit = true
       console.log(this)
       this.$nextTick(() => {
-        this.$refs.changeTextarea.focus()
+        this.$refs.changeText.focus()
       })
     },
     saveText () {
@@ -83,10 +83,12 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-  $iconColor: rgb(61, 58, 58);
+  $iconColor: #000;
   .completed-checkbox {
     margin: 10px 4px 0 0;
-    border-radius: 100%;
+    &:hover {
+      cursor: pointer;
+    }
   }
   .completed {
     text-decoration: line-through;
@@ -103,7 +105,6 @@ export default {
   }
   .item-div {
     display:flex;
-    margin-bottom: 20px;
     padding: 3px 0 3px 0;
     &:hover {
       border-radius: 3px;
@@ -138,11 +139,14 @@ export default {
     font-size: 20px;
     color: red;
   }
-  .pen, .trash, .cancel-icon, .save-icon {
+  .pen-icon, .trash-icon, .cancel-icon, .save-icon {
     color: $iconColor;
     height: 20px;
     width: 20px;
     font-size: 20px;
+    &:hover {
+      cursor: pointer;
+    }
   }
   @media only screen and (max-width: 449px) {
     .item-div {

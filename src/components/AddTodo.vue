@@ -3,7 +3,7 @@
     <h2 :class="{'hide-error': isError}" class="error">{{ errorText }}</h2>
     <div class="add-todo-item">
       <div @click="addTodo" class="con-icon">
-        <i class="fas fa-plus add-btn"></i>
+        <i class="fas fa-plus add-btn-icon"></i>
       </div>
       <input type="text" v-model="title" name="title" @keyup.esc="clean" @keyup.enter="addTodo" class="form-control add-input" placeholder="Add task...">
     </div>
@@ -58,16 +58,20 @@ export default {
   margin: 0 10px;
   display: inline-block;
   width: 100%;
-  background-color: #ccc;
+  background-color: #eaebed;
   padding: 0 0 0 40px;
   color: rgb(44, 36, 36);
 }
-.add-btn {
+.add-btn-icon {
   position: absolute;
   top: 8px;
   left: 19px;
   font-size: 23px;
-  color: #888;
+  color: #000;
+  font-weight: 100;
+  &:hover {
+    cursor: pointer;
+  }
 }
 .error {
   color: red;
