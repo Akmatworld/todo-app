@@ -60,6 +60,7 @@ export default {
   width: 100%;
   background-color: #ccc;
   padding: 0 0 0 40px;
+  color: rgb(44, 36, 36);
 }
 .add-btn {
   position: absolute;

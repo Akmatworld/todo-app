@@ -2,14 +2,25 @@
   <div>
     <div :class="{ 'completed': todo.completed }">
       <div class="item-div">
-        <b-button class="done" :class="{hide: isHide}" @click="markComplete" variant="success">Done</b-button>
-        <b-button class="delete" :class="{hide: isHide}" @click="$emit('delete-todo', todo.id)" variant="danger">Delete</b-button>
-        <b-button class="cancel" :class="{hide: isChange}" @click="cancel" variant="danger">Cancel</b-button>
-        <b-button class="save" :class="{hide: isChange}" @click="saveText" variant="outline-primary">Save</b-button>
-        <p class="item-p" :class="{completed: isCompleted, hide: isHide}" @click="clickChangeText">{{ todo.title }}</p>
+        <div class="save" :class="{hide: isChange}" @click="saveText">
+          <i class="far fa-save save-icon"></i>
+        </div>
+        <div class="cancel" :class="{hide: isChange}" @click="cancel">
+          <i class="far fa-times-circle cancel-icon"></i>
+        </div>
+        <div class="completed-container">
+          <input type="checkbox" class="completed-checkbox" :class="{hideEdit: isEdit}" v-model="isCompleted">
+        </div>
+        <p class="item-p" :class="{completed: isCompleted, hide: isHide}">{{ todo.title }}</p>
+        <!-- <div class="trash" @click="$emit('delete-todo', todo.id)">
+          <i class="far fa-trash-alt"></i>
+        </div> -->
         <div class="form-group item-p" :class="{hide: isChange}">
           <h2 class="error" :class="{hide: isError}">{{ errorText }}</h2>
-          <textarea class="form-control" ref="changeTextarea" @keyup.esc="cancel" @keyup.enter="saveText" id="changeTextId" rows="2" v-model='text'></textarea>
+          <input type="text" v-model="text" name="title"  ref="changeText" @keyup.esc="cancel" @keyup.enter="saveText" class="form-control edit-input" placeholder="Edit...">
+        </div>
+        <div class="pen" :class="{hideEdit: isEdit}" @click="clickChangeText">
+          <i class="fas fa-pen"></i>
         </div>
       </div>
     </div>
@@ -27,6 +38,7 @@ export default {
       isChange: true,
       isCompleted: false,
       isError: true,
+      isEdit: false,
       errorText: 'To change you need enter change text!',
       text: this.todo.title,
       id: this.todo.id
@@ -42,6 +54,8 @@ export default {
     clickChangeText () {
       this.isHide = true
       this.isChange = false
+      this.isEdit = true
+      console.log(this)
       this.$nextTick(() => {
         this.$refs.changeTextarea.focus()
       })
@@ -51,6 +65,7 @@ export default {
         this.$emit('save-text', { title: this.text, id: this.id })
         this.isHide = false
         this.isChange = true
+        this.isEdit = false
       } else {
         this.isError = false
         setTimeout(() => {
@@ -61,19 +76,25 @@ export default {
     cancel () {
       this.isHide = false
       this.isChange = true
+      this.isEdit = false
       this.text = this.todo.title
     }
   }
 }
 </script>
 <style scoped lang="scss">
+  $iconColor: rgb(61, 58, 58);
+  .completed-checkbox {
+    margin: 10px 4px 0 0;
+    border-radius: 100%;
+  }
   .completed {
     text-decoration: line-through;
     color: #ccc;
   }
   .item-p {
     padding: 0 5px;
-    font-size: 25px;
+    font-size: 20px;
     width: 100%;
     margin: 0;
   }
@@ -83,7 +104,7 @@ export default {
   .item-div {
     display:flex;
     margin-bottom: 20px;
-    padding: 3px 0 3px 5px;
+    padding: 3px 0 3px 0;
     &:hover {
       border-radius: 3px;
     }
@@ -98,41 +119,99 @@ export default {
     margin-right: 5px;
     height: 40px;
   }
-  .hide {
+  .edit-input {
+    font-size: 20px;
+    padding: 0 4px;
+  }
+  .hide, .hideEdit {
     display: none;
   }
   .save {
-    width: 10%;
-    margin-right: 5px;
-    height: 40px;
+    width: 3%;
+    margin: 10px 7px 0 0;
   }
   .cancel {
-    width: 10%;
-    margin-right: 5px;
-    height: 40px;
+    width: 3%;
+    margin: 10px 7px 0 0;
   }
   .error {
     font-size: 20px;
     color: red;
   }
-  @media only screen and (max-width: 913px) {
+  .pen, .trash, .cancel-icon, .save-icon {
+    color: $iconColor;
+    height: 20px;
+    width: 20px;
+    font-size: 20px;
+  }
+  @media only screen and (max-width: 449px) {
     .item-div {
-      display: block;
       padding-left: 0;
     }
     .done,
     .delete,
     .cancel,
     .save {
-      width: 45%;
-      margin: 0;
+      width: 16%;
+      margin: 6px 0 0 0;
     }
     .done {
       margin-right: 10%;
     }
     .item-p {
       font-size: 18px;
-      margin-top: 5px;
+    }
+    .edit-input {
+      font-size: 15px;
+    }
+  }
+  @media only screen and (min-width: 440px) and (max-width: 639px) {
+    .item-div {
+      padding-left: 0;
+    }
+    .done,
+    .delete,
+    .cancel,
+    .save {
+      width: 10%;
+      margin: 6px 0 0 0;
+    }
+    .done {
+      margin-right: 10%;
+    }
+    .item-p {
+      font-size: 18px;
+    }
+    .edit-input {
+      font-size: 15px;
+    }
+  }
+  @media only screen and (min-width: 640px) and (max-width: 913px) {
+    .item-div {
+      padding-left: 0;
+    }
+    .done,
+    .delete,
+    .cancel,
+    .save {
+      width: 6%;
+      margin: 6px 0 0 0;
+    }
+    .done {
+      margin-right: 10%;
+    }
+    .item-p {
+      font-size: 18px;
+      width: 100%;
+    }
+    .edit-input {
+      font-size: 15px;
+    }
+  }
+  @media only screen and (max-width: 913px) {
+    .item-div {
+      padding-left: 0;
+      margin-bottom: 0;
     }
   }
 </style>
