@@ -123,6 +123,7 @@ export default {
   .edit-input {
     font-size: 20px;
     padding: 0 4px;
+    font-family: Roboto;
   }
   .hide, .hideEdit {
     display: none;
@@ -166,7 +167,7 @@ export default {
       font-size: 18px;
     }
     .edit-input {
-      font-size: 15px;
+      font-size: 18px;
     }
   }
   @media only screen and (min-width: 440px) and (max-width: 639px) {
@@ -187,7 +188,7 @@ export default {
       font-size: 18px;
     }
     .edit-input {
-      font-size: 15px;
+      font-size: 18px;
     }
   }
   @media only screen and (min-width: 640px) and (max-width: 913px) {
@@ -209,7 +210,7 @@ export default {
       width: 100%;
     }
     .edit-input {
-      font-size: 15px;
+      font-size: 18px;
     }
   }
   @media only screen and (max-width: 913px) {

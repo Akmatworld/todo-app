@@ -73,6 +73,7 @@ body {
   width: 70%;
   margin: 0 auto;
   border: 1px solid #ccc;
+  font-family: Roboto;
 }
 .todo-title {
   text-align: center;

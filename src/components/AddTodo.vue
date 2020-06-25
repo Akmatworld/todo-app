@@ -61,6 +61,7 @@ export default {
   background-color: #eaebed;
   padding: 0 0 0 40px;
   color: rgb(44, 36, 36);
+  font-family: Roboto;
 }
 .add-btn-icon {
   position: absolute;
