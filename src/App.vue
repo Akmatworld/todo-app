@@ -72,6 +72,7 @@ body {
 #app {
   width: 80%;
   margin: 0 auto;
+  border: 1px solid #ccc;
 }
 .todo-title {
   text-align: center;

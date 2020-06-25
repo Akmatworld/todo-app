@@ -2,8 +2,10 @@
   <div>
     <h2 :class="{'hide-error': isError}" class="error">{{ errorText }}</h2>
     <div class="add-todo-item">
-      <input type="text" v-model="title" name="title" @keyup.esc="clean" @keyup.enter="addTodo" class="form-control add-input" placeholder="Enter text that add in to the todo list">
-      <b-button type="submit" variant="outline-primary" @click="addTodo" class="add-btn">Add</b-button>
+      <div @click="addTodo" class="con-icon">
+        <i class="fas fa-plus add-btn"></i>
+      </div>
+      <input type="text" v-model="title" name="title" @keyup.esc="clean" @keyup.enter="addTodo" class="form-control add-input" placeholder="Add task...">
     </div>
   </div>
 </template>
@@ -50,16 +52,21 @@ export default {
   margin: 0 0 20px;
   display: flex;
   justify-content:space-between;
+  position: relative;
 }
 .add-input {
   margin: 0 10px;
   display: inline-block;
   width: 100%;
+  background-color: #ccc;
+  padding: 0 0 0 40px;
 }
 .add-btn {
-  width: 100px;
-  margin-right: 5px;
-  height: 37px;
+  position: absolute;
+  top: 8px;
+  left: 19px;
+  font-size: 23px;
+  color: #888;
 }
 .error {
   color: red;
