@@ -2,7 +2,7 @@
   <div id="app">
     <h2 class="todo-title">Personal</h2>
     <AddTodo @add-todo="addTodo"/>
-    <Todos :todos="todos" @delete-todo="deleteTodo" @save-text="saveText"/>
+    <Todos :todos="todos" :completed-todos="completedTodos" @delete-todo="deleteTodo" @save-text="saveText" @move-text-completed="moveText" @move-text-Back="moveBack" @hide-completed-tasks="hideCompletedTasks"/>
   </div>
 </template>
 <script>
@@ -43,7 +43,9 @@ export default {
           title: 'Earum minima error minus eveniet consequatur.',
           completed: false
         }
-      ]
+      ],
+      completedTodos: [],
+      temporaryComletedTasks: []
     }
   },
   methods: {
@@ -51,7 +53,7 @@ export default {
       this.todos = [...this.todos, newTodoObj]
     },
     deleteTodo (todoId) {
-      this.todos = this.todos.filter(todo => todo.id !== todoId)
+      this.completedTodos = this.completedTodos.filter(ctodo => ctodo.id !== todoId)
     },
     saveText (changedText) {
       this.todos.forEach((item, index) => {
@@ -59,6 +61,35 @@ export default {
           this.todos[index].title = changedText.title
         }
       })
+    },
+    hideCompletedTasks () {
+      if (this.completedTodos.length > 0) {
+        this.completedTodos = []
+      } else {
+        this.completedTodos = this.temporaryComletedTasks
+      }
+    },
+    moveText (id) {
+      let index = null
+      this.todos.forEach((item, i) => {
+        if (item.id === id) {
+          index = i
+          item.completed = true
+          this.completedTodos.push(item)
+        }
+      })
+      this.todos.splice(index, 1)
+    },
+    moveBack (id) {
+      let index = null
+      this.completedTodos.forEach((item, i) => {
+        if (item.id === id) {
+          index = i
+          item.completed = false
+          this.todos.push(item)
+        }
+      })
+      this.completedTodos.splice(index, 1)
     }
   }
 }
@@ -80,6 +111,12 @@ body {
   margin:10px 0 20px;
   color: #45c7c1;
   font-weight: 900;
+}
+@media only screen and (max-width: 913px) {
+  .todo-title {
+    font-size: 28px;
+    margin: 10px 0;
+  }
 }
 @media only screen and (max-width: 500px) {
   #app {

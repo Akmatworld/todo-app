@@ -36,7 +36,7 @@ export default {
     return {
       isHide: false,
       isChange: true,
-      isCompleted: false,
+      isCompleted: this.todo.completed,
       isError: true,
       isEdit: false,
       errorText: 'To change you need enter change text!',
@@ -47,6 +47,11 @@ export default {
   props: [
     'todo'
   ],
+  watch: {
+    isCompleted (val, oldVal) {
+      this.$emit('move-text-completed', this.todo.id)
+    }
+  },
   methods: {
     markComplete () {
       this.isCompleted = this.isCompleted === false
@@ -55,7 +60,6 @@ export default {
       this.isHide = true
       this.isChange = false
       this.isEdit = true
-      console.log(this)
       this.$nextTick(() => {
         this.$refs.changeText.focus()
       })
@@ -82,7 +86,7 @@ export default {
   }
 }
 </script>
-<style scoped lang="scss">
+<style lang="scss">
   $iconColor: #000;
   .completed-checkbox {
     margin: 10px 4px 0 0;
@@ -214,9 +218,18 @@ export default {
     }
   }
   @media only screen and (max-width: 913px) {
+    .completed-checkbox {
+      margin: 7px 4px 0 0;
+    }
     .item-div {
       padding-left: 0;
       margin-bottom: 0;
+    }
+    .item-p {
+      font-size: 17px;
+    }
+    .pen-icon, .trash-icon, .cancel-icon, .save-icon {
+      font-size: 20px;
     }
   }
 </style>

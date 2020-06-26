@@ -1,26 +1,38 @@
 <template>
   <div>
     <ul class="todos-ul">
-      <li v-bind:key="todo.id" v-for="todo in todos">
-        <Todo v-bind:todo="todo" @delete-todo="$emit('delete-todo', todo.id)" @save-text="saveText"/>
+      <li :key="todo.id" v-for="todo in todos">
+        <Todo :todo="todo" @save-text="saveText" @move-text-completed="moveText"/>
+      </li>
+      <HideCompletedTasksBtn/>
+      <li :key="ctodo.id" v-for="ctodo in completedTodos">
+        <CompletedTodo :ctodo="ctodo" @delete-todo="$emit('delete-todo', ctodo.id)" @move-back="$emit('move-text-Back', ctodo.id)"/>
       </li>
     </ul>
   </div>
 </template>
 <script>
 import Todo from './Todo'
+import CompletedTodo from './completedTodo'
+import HideCompletedTasksBtn from './HideCompletedTasksButton'
 
 export default {
   name: 'Todos',
   components: {
-    Todo
+    Todo,
+    CompletedTodo,
+    HideCompletedTasksBtn
   },
   props: [
-    'todos'
+    'todos',
+    'completedTodos'
   ],
   methods: {
     saveText (changedText) {
       this.$emit('save-text', changedText)
+    },
+    moveText (id) {
+      this.$emit('move-text-completed', id)
     }
   }
 }
