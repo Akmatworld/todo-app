@@ -91,7 +91,6 @@ export default {
       this.todos.splice(index, 1)
     },
     moveBack (id) {
-      this.isHidetext = false
       let index = null
       this.completedTodos.forEach((item, i) => {
         if (item.id === id) {
@@ -101,6 +100,9 @@ export default {
         }
       })
       this.completedTodos.splice(index, 1)
+      if (this.completedTodos.length === 0) {
+        this.isHidetext = false
+      }
     }
   }
 }
@@ -113,7 +115,7 @@ body {
 }
 #app {
   width: 70%;
-  margin: 0 auto;
+  margin: 0 auto 50px;
   font-family: Roboto;
 }
 .todo-title {
