@@ -4,7 +4,7 @@
       <li :key="todo.id" v-for="todo in todos">
         <Todo :todo="todo" @save-text="saveText" @move-text-completed="moveText"/>
       </li>
-      <HideCompletedTasksBtn/>
+      <HideCompletedTasksBtn v-if="hideText" :title="titleHideOrShow" @hide-completed-tasks="$emit('hide-completed-tasks')"/>
       <li :key="ctodo.id" v-for="ctodo in completedTodos">
         <CompletedTodo :ctodo="ctodo" @delete-todo="$emit('delete-todo', ctodo.id)" @move-back="$emit('move-text-Back', ctodo.id)"/>
       </li>
@@ -25,7 +25,9 @@ export default {
   },
   props: [
     'todos',
-    'completedTodos'
+    'completedTodos',
+    'hideText',
+    'titleHideOrShow'
   ],
   methods: {
     saveText (changedText) {

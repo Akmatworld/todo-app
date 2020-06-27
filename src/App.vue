@@ -2,7 +2,7 @@
   <div id="app">
     <h2 class="todo-title">Personal</h2>
     <AddTodo @add-todo="addTodo"/>
-    <Todos :todos="todos" :completed-todos="completedTodos" @delete-todo="deleteTodo" @save-text="saveText" @move-text-completed="moveText" @move-text-Back="moveBack" @hide-completed-tasks="hideCompletedTasks"/>
+    <Todos :todos="todos" :hideText="isHidetext" :title-hide-or-show="titleHideOrShow" :completed-todos="completedTodos" @delete-todo="deleteTodo" @save-text="saveText" @move-text-completed="moveText" @move-text-Back="moveBack" @hide-completed-tasks="hideCompletedTasks"/>
   </div>
 </template>
 <script>
@@ -39,13 +39,15 @@ export default {
           completed: false
         },
         {
-          i: 5,
+          id: 5,
           title: 'Earum minima error minus eveniet consequatur.',
           completed: false
         }
       ],
       completedTodos: [],
-      temporaryComletedTasks: []
+      temporaryComletedTasks: [],
+      isHidetext: false,
+      titleHideOrShow: 'Hide '
     }
   },
   methods: {
@@ -54,6 +56,9 @@ export default {
     },
     deleteTodo (todoId) {
       this.completedTodos = this.completedTodos.filter(ctodo => ctodo.id !== todoId)
+      if (this.completedTodos.length === 0) {
+        this.isHidetext = false
+      }
     },
     saveText (changedText) {
       this.todos.forEach((item, index) => {
@@ -64,12 +69,17 @@ export default {
     },
     hideCompletedTasks () {
       if (this.completedTodos.length > 0) {
+        this.temporaryComletedTasks = this.completedTodos
         this.completedTodos = []
+        this.titleHideOrShow = 'Show '
       } else {
         this.completedTodos = this.temporaryComletedTasks
+        this.temporaryComletedTasks = []
+        this.titleHideOrShow = 'Hide '
       }
     },
     moveText (id) {
+      this.isHidetext = true
       let index = null
       this.todos.forEach((item, i) => {
         if (item.id === id) {
@@ -81,6 +91,7 @@ export default {
       this.todos.splice(index, 1)
     },
     moveBack (id) {
+      this.isHidetext = false
       let index = null
       this.completedTodos.forEach((item, i) => {
         if (item.id === id) {
@@ -103,7 +114,6 @@ body {
 #app {
   width: 70%;
   margin: 0 auto;
-  border: 1px solid #ccc;
   font-family: Roboto;
 }
 .todo-title {

@@ -1,15 +1,15 @@
 <template>
-  <div >
-    <div class="hide-completed-bnt" @click="$emit('hide-completed-tasks')">Hide Completed Tasks</div>
+  <div class="hide-completed-list">
+    <div class="hide-completed-bnt" @click="hideCompletedTasks">{{ title }}Completed Tasks</div>
   </div>
 </template>
 <script>
 export default {
   name: 'HideCompletedTasksButton',
-  data () {
-    return {
-      show: 'Show Completed Tasks',
-      hide: 'Hide Completed Tasks'
+  props: ['title'],
+  methods: {
+    hideCompletedTasks () {
+      this.$emit('hide-completed-tasks')
     }
   }
 }
